@@ -8,13 +8,14 @@ package SortedArrays;
 
 import Exceptions.NotFoundInCollectionException;
 import Exceptions.NotSupportComparable;
+import Interfaces.UnorderedListADT;
 import java.util.Iterator;
 
 /**
  *
  * @author Navega
  */
-public class ArrayUnorderedList<T> extends ArrayList<T> {
+public class ArrayUnorderedList<T> extends ArrayList<T> implements UnorderedListADT<T> {
 
     @Override
     public void addAfter(Object element, Object target) throws NotSupportComparable, NotFoundInCollectionException {

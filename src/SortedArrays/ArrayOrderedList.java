@@ -7,13 +7,14 @@ package SortedArrays;
 
 
 import Exceptions.NotSupportComparable;
+import Interfaces.OrderedListADT;
 import java.util.Iterator;
 
 /**
  *
  * @author navega
  */
-public class ArrayOrderedList<T> extends ArrayList<T> {
+public class ArrayOrderedList<T> extends ArrayList<T> implements OrderedListADT<T>{
 
 
     public ArrayOrderedList() {
@@ -24,7 +25,8 @@ public class ArrayOrderedList<T> extends ArrayList<T> {
     public void add(T element) throws NotSupportComparable {
         if (element instanceof Comparable) {
             if (rear + 1 == lenght) {//+1 para evitar encher totalmente o array e crashar ao fazer shift
-                this.expandCapacity();
+                //this.expandCapacity();
+                //TODO 
             }
             int i = 0, index = -1;
             boolean found = false;
@@ -62,6 +64,8 @@ public class ArrayOrderedList<T> extends ArrayList<T> {
         }
     }
 
+    
+    
     @Override
     public String toString() {
         String result = "";

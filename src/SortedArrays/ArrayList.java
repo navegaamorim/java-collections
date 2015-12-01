@@ -7,6 +7,7 @@ package SortedArrays;
 
 import Exceptions.NotFoundInCollectionException;
 import Exceptions.NotSupportComparable;
+import Interfaces.ListADT;
 import Interfaces.OrderedListADT;
 import Interfaces.UnorderedListADT;
 import java.util.Iterator;
@@ -15,7 +16,7 @@ import java.util.Iterator;
  *
  * @author Navega
  */
-public class ArrayList<T> implements UnorderedListADT<T>, OrderedListADT<T> {
+public class ArrayList<T> implements ListADT<T> {
 
     protected int lenght;
     protected T[] list;
@@ -33,25 +34,6 @@ public class ArrayList<T> implements UnorderedListADT<T>, OrderedListADT<T> {
         this.list = (T[]) new Object[lenght];
     }
 
-    @Override
-    public void add(T element) throws NotSupportComparable {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void addToFront(Object element) throws NotSupportComparable {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void addToRear(Object element) throws NotSupportComparable {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void addAfter(Object element, Object target) throws NotSupportComparable, NotFoundInCollectionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public T removeFirst() {
@@ -160,22 +142,22 @@ public class ArrayList<T> implements UnorderedListADT<T>, OrderedListADT<T> {
         }
     }
 
-    /**
-     * Expands the lenght of array, by doubling the size of actual array
-     *
-     * @throws NotSupportComparable
-     */
-    public void expandCapacity() throws NotSupportComparable {
-        ArrayList<T> orderListTemp = new ArrayList(this.lenght * 2);
-        while (!this.isEmpty()) {
-            orderListTemp.add(this.removeFirst());
-        }
-        System.out.println("Expanded Capacity from " + this.lenght + " to " + orderListTemp.lenght);
-
-        this.rear = orderListTemp.rear;
-        this.lenght = orderListTemp.lenght;
-        this.list = orderListTemp.list;
-    }
+//    /**
+//     * Expands the lenght of array, by doubling the size of actual array
+//     *
+//     * @throws NotSupportComparable
+//     */
+//    public void expandCapacity() throws NotSupportComparable {
+//        ArrayList<T> orderListTemp = new ArrayList(this.lenght * 2);
+//        while (!this.isEmpty()) {
+//            orderListTemp.add(this.removeFirst());
+//        }
+//        System.out.println("Expanded Capacity from " + this.lenght + " to " + orderListTemp.lenght);
+//
+//        this.rear = orderListTemp.rear;
+//        this.lenght = orderListTemp.lenght;
+//        this.list = orderListTemp.list;
+//    }
 
     public class BasicIterator<T> implements Iterator {
         private int count;
