@@ -5,73 +5,46 @@
  */
 package SortedArrays;
 
-
 import Exceptions.NotSupportComparable;
 import Interfaces.OrderedListADT;
-import java.util.Iterator;
 
 /**
  *
  * @author navega
  */
-public class ArrayOrderedList<T> extends ArrayList<T> implements OrderedListADT<T>{
-
+public class ArrayOrderedList<T> extends ArrayList<T> implements OrderedListADT<T> {
 
     public ArrayOrderedList() {
         super();
     }
 
+    protected ArrayOrderedList(int lenght) {
+        super(lenght);
+    }
+
     @Override
     public void add(T element) throws NotSupportComparable {
         if (element instanceof Comparable) {
-            if (rear + 1 == lenght) {//+1 para evitar encher totalmente o array e crashar ao fazer shift
-                //this.expandCapacity();
-                //TODO 
+            if (this.size() == this.lenght) {
+                this.expandCapacity();
             }
-            int i = 0, index = -1;
-            boolean found = false;
 
-            if (this.isEmpty()) {
-                // first element
-                list[0] = element;
-                ++rear;
-
-            } else {
-                //finding element and position
-                Comparable temp = (Comparable) list[0];
-
-                while (found != true && temp != null) {
-                    temp = (Comparable) list[i];
-                    if (temp != null && temp.compareTo(element) == 1) {
-                        index = i;
-                        found = true;
-                    }
-                    ++i;
-                }
-
-                if (found) {
-                    //shift elements in array
-                    this.shiftArray(index);
-                    list[index] = element;
-                    ++rear;
-                } else {
-                    list[rear] = element;
-                    ++rear;
-                }
+            Comparable<T> temp = (Comparable<T>) element;
+            int scan = 0;
+            while (scan < this.rear && temp.compareTo(list[scan]) > 0) {
+                ++scan;
             }
+
+            //shift
+            for (int i = rear; i > scan; --i) {
+                list[i] = list[i - 1];
+            }
+
+            list[scan] = element;
+            ++rear;
+
         } else {
             throw new NotSupportComparable("Not support comparable.");
         }
-    }
-
-    
-    
-    @Override
-    public String toString() {
-        String result = "";
-        for (int i = 0; i < this.rear; ++i) {
-            result = result + "\n" + this.list[i].toString();
-        }
-        return "ArrayOrderedList " + "\n" + result;
     }
 }

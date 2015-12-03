@@ -5,7 +5,6 @@
  */
 package SortedArrays;
 
-
 import Exceptions.NotFoundInCollectionException;
 import Exceptions.NotSupportComparable;
 import Interfaces.UnorderedListADT;
@@ -16,6 +15,14 @@ import java.util.Iterator;
  * @author Navega
  */
 public class ArrayUnorderedList<T> extends ArrayList<T> implements UnorderedListADT<T> {
+
+    public ArrayUnorderedList() {
+        super();
+    }
+
+    protected ArrayUnorderedList(int lenght) {
+        super(lenght);
+    }
 
     @Override
     public void addAfter(Object element, Object target) throws NotSupportComparable, NotFoundInCollectionException {
@@ -44,5 +51,4 @@ public class ArrayUnorderedList<T> extends ArrayList<T> implements UnorderedList
         super.list[0] = (T) element;
         ++super.rear;
     }
-
 }

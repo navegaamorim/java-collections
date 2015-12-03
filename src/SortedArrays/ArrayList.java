@@ -5,11 +5,8 @@
  */
 package SortedArrays;
 
-import Exceptions.NotFoundInCollectionException;
 import Exceptions.NotSupportComparable;
 import Interfaces.ListADT;
-import Interfaces.OrderedListADT;
-import Interfaces.UnorderedListADT;
 import java.util.Iterator;
 
 /**
@@ -24,20 +21,19 @@ public class ArrayList<T> implements ListADT<T> {
 
     public ArrayList() {
         this.rear = 0;
-        this.lenght = 53;
+        this.lenght = 3;
         this.list = (T[]) new Object[lenght];
     }
 
-    private ArrayList(int lenght) {
+    protected ArrayList(int lenght) {
         this.rear = 0;
         this.lenght = lenght;
         this.list = (T[]) new Object[lenght];
     }
 
-
     @Override
     public T removeFirst() {
-        T temp = this.list[0];
+        T temp = this.first();
         this.shiftArrayBackWards(0);
         --rear;
         return temp;
@@ -111,9 +107,24 @@ public class ArrayList<T> implements ListADT<T> {
         return this.rear;
     }
 
-    @Override
-    public Iterator<T> iterator() {
-        return new BasicIterator();
+    /**
+     * Expands the lenght of array, by doubling the size of actual array
+     *
+     * @throws NotSupportComparable
+     */
+    public void expandCapacity() throws NotSupportComparable {
+        ArrayUnorderedList<T> listTemp = new ArrayUnorderedList(this.lenght * 2);
+        while (!this.isEmpty()) {
+            T element = this.removeFirst();
+            if (element != null) {
+                listTemp.addToRear(element);
+            }
+        }
+        System.out.println("Expanded Capacity from " + this.lenght + " to " + listTemp.lenght);
+
+        this.rear = listTemp.rear;
+        this.lenght = listTemp.lenght;
+        this.list = listTemp.list;
     }
 
     /**
@@ -122,8 +133,11 @@ public class ArrayList<T> implements ListADT<T> {
      * @param position - position where the shift ends, and the new element will
      * be inserted
      */
-    public void shiftArray(int position) {
+    public void shiftArray(int position) throws NotSupportComparable {
         int i;
+        if (this.size() == this.lenght) {
+            this.expandCapacity();
+        }
         for (i = rear; i > position; --i) {
             list[i] = list[i - 1];
         }
@@ -137,35 +151,34 @@ public class ArrayList<T> implements ListADT<T> {
      */
     public void shiftArrayBackWards(int position) {
         int i;
-        for (i = position; i < rear; ++i) {
+        for (i = position; i < rear - 1; ++i) {
             list[i] = list[i + 1];
         }
     }
 
-//    /**
-//     * Expands the lenght of array, by doubling the size of actual array
-//     *
-//     * @throws NotSupportComparable
-//     */
-//    public void expandCapacity() throws NotSupportComparable {
-//        ArrayList<T> orderListTemp = new ArrayList(this.lenght * 2);
-//        while (!this.isEmpty()) {
-//            orderListTemp.add(this.removeFirst());
-//        }
-//        System.out.println("Expanded Capacity from " + this.lenght + " to " + orderListTemp.lenght);
-//
-//        this.rear = orderListTemp.rear;
-//        this.lenght = orderListTemp.lenght;
-//        this.list = orderListTemp.list;
-//    }
+    @Override
+    public String toString() {
+        String result = "";
+        for (int i = 0; i < this.rear; ++i) {
+            result = result + "\n" + this.list[i].toString();
+        }
+        return "ArrayList " + "\n" + result;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new BasicIterator();
+    }
 
     public class BasicIterator<T> implements Iterator {
+
         private int count;
 
         @Override
         public boolean hasNext() {
             return count < size();
         }
+
         @Override
         public Object next() {
             Object temp = list[count];

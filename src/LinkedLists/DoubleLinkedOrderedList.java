@@ -2,6 +2,7 @@ package LinkedLists;
 
 import Classes.BiLinearNode;
 import Exceptions.NotSupportComparable;
+import Interfaces.OrderedListADT;
 
 
 
@@ -14,7 +15,7 @@ import Exceptions.NotSupportComparable;
  *
  * @author navega
  */
-public class DoubleLinkedOrderedList<T> extends ArrayLinkedList<T> {
+public class DoubleLinkedOrderedList<T> extends ArrayLinkedList<T> implements OrderedListADT<T> {
 
     public DoubleLinkedOrderedList() {
         super();
@@ -57,18 +58,6 @@ public class DoubleLinkedOrderedList<T> extends ArrayLinkedList<T> {
         } else {
             throw new NotSupportComparable("Not support comparable.");
         }
-    }
-
-    @Override
-    public String toString() {
-        String result = "";
-        BiLinearNode current = super.head;
-        while (current != null) {
-            result = result + "\n" + current.toString();
-            current = current.getNext();
-        }
-
-        return "DoubleLinkedOrderedList" + "\n" + result;
     }
 
 }

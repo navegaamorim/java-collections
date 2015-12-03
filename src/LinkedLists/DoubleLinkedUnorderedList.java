@@ -3,6 +3,7 @@ package LinkedLists;
 import Classes.BiLinearNode;
 import Exceptions.NotFoundInCollectionException;
 import Exceptions.NotSupportComparable;
+import Interfaces.UnorderedListADT;
 
 
 
@@ -15,7 +16,7 @@ import Exceptions.NotSupportComparable;
  *
  * @author Navega
  */
-public class DoubleLinkedUnorderedList<T> extends ArrayLinkedList<T> {
+public class DoubleLinkedUnorderedList<T> extends ArrayLinkedList<T> implements UnorderedListADT<T> {
 
 
     public DoubleLinkedUnorderedList() {
@@ -85,15 +86,6 @@ public class DoubleLinkedUnorderedList<T> extends ArrayLinkedList<T> {
         }
     }
 
-    @Override
-    public String toString() {
-        String result = "";
-        BiLinearNode current = super.head;
-        while (current != null) {
-            result = result + "\n" + current.toString();
-            current = current.getNext();
-        }
-        return "DoubleLinkedUnOrderedList" + "\n" + result;
-    }
+
 
 }

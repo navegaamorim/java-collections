@@ -8,6 +8,7 @@ package LinkedLists;
 import Classes.BiLinearNode;
 import Exceptions.NotFoundInCollectionException;
 import Exceptions.NotSupportComparable;
+import Interfaces.ListADT;
 import Interfaces.OrderedListADT;
 import Interfaces.UnorderedListADT;
 import java.util.Iterator;
@@ -16,7 +17,7 @@ import java.util.Iterator;
  *
  * @author Navega
  */
-public class ArrayLinkedList<T> implements UnorderedListADT<T>, OrderedListADT<T> {
+public class ArrayLinkedList<T> implements ListADT<T> {
 
     protected BiLinearNode head, tail;
     protected int count;
@@ -25,26 +26,6 @@ public class ArrayLinkedList<T> implements UnorderedListADT<T>, OrderedListADT<T
         this.head = null;
         this.tail = null;
         this.count = 0;
-    }
-
-    @Override
-    public void add(T element) throws NotSupportComparable {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void addToFront(Object element) throws NotSupportComparable {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void addToRear(Object element) throws NotSupportComparable {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void addAfter(Object element, Object target) throws NotSupportComparable, NotFoundInCollectionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -136,6 +117,17 @@ public class ArrayLinkedList<T> implements UnorderedListADT<T>, OrderedListADT<T
     @Override
     public int size() {
         return this.count;
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+        BiLinearNode current = this.head;
+        while (current != null) {
+            result = result + "\n" + current.toString();
+            current = current.getNext();
+        }
+        return "ArrayLinkedList" + "\n" + result;
     }
 
     @Override
